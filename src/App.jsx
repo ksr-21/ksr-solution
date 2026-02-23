@@ -9,7 +9,6 @@ import {
   CheckCircle,
   ArrowRight,
   Mail,
-  Linkedin,
   MessageSquare,
   Clock,
   ShieldCheck,
@@ -255,13 +254,6 @@ function App() {
                   <div style={{ color: 'var(--text-muted)' }}>kunalsinghrajput2125@gmail.com</div>
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                <div style={{ background: 'var(--accent-mint)', padding: '12px', borderRadius: '12px', color: 'var(--accent-teal)' }}><Linkedin size={24} /></div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '1.1rem' }}>LinkedIn</div>
-                  <div style={{ color: 'var(--text-muted)' }}>linkedin.com/company/ksr-tech</div>
-                </div>
-              </div>
             </div>
           </div>
 
@@ -272,7 +264,13 @@ function App() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <form style={{ display: 'grid', gap: '24px' }}>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert('Thank you for your interest! Our team will contact you shortly.');
+              }}
+              style={{ display: 'grid', gap: '24px' }}
+            >
               <div className="form-group">
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Full Name</label>
                 <input type="text" placeholder="Alex Chen" />
@@ -301,10 +299,7 @@ function App() {
               <div className="footer-logo">KSR <span>Solutions</span></div>
               <p>Engineering elite technical infrastructure for high-growth enterprises and ambitious startups globally.</p>
               <div className="social-links">
-                <a href="#" className="social-icon"><Linkedin size={20} /></a>
                 <a href="mailto:kunalsinghrajput2125@gmail.com" className="social-icon"><Mail size={20} /></a>
-                <a href="#" className="social-icon"><Globe size={20} /></a>
-                <a href="#" className="social-icon"><Zap size={20} /></a>
               </div>
             </div>
 
@@ -324,7 +319,6 @@ function App() {
                 <li><a href="#about">Our Philosophy</a></li>
                 <li><a href="#process">Framework</a></li>
                 <li><a href="#contact">Partnership</a></li>
-                <li><a href="#contact">Resources</a></li>
               </ul>
             </div>
 
@@ -333,8 +327,6 @@ function App() {
               <ul className="footer-links">
                 <li><a href="#" onClick={(e) => { e.preventDefault(); setView('privacy'); }}>Privacy Policy</a></li>
                 <li><a href="#" onClick={(e) => { e.preventDefault(); setView('terms'); }}>Terms of Service</a></li>
-                <li><a href="#contact">Security Audit</a></li>
-                <li><a href="#contact">Cookie Policy</a></li>
               </ul>
             </div>
           </div>
