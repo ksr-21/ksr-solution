@@ -26,11 +26,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps: // checkout doesn't have an output for url, but the deployment step does
-        {
-          github-pages.outputs.page_url
-        }
-      }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
