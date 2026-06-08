@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import './App.css'
-import { PrivacyPolicy, TermsOfService } from './Legal'
+import { PrivacyPolicy, TermsOfService } from './Legal.jsx'
 
 const services = [
   {
