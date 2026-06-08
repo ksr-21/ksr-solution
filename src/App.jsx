@@ -197,7 +197,7 @@ function App() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <span className="section-tag" style={{ background: 'rgba(16, 185, 129, 0.15)', color: 'var(--primary-emerald)' }}>Pune's Leading Tech Agency</span>
+            <span className="section-tag" style={{ background: 'rgba(16, 185, 129, 0.15)', color: 'var(--primary-emerald)' }}>Pune&apos;s Leading Tech Agency</span>
             <h1>Any Problem. One Solution.</h1>
             <p>We build websites and AI solutions for businesses that want to grow. Fast. Affordable. Powerful.</p>
             <div className="hero-btns">
@@ -232,7 +232,7 @@ function App() {
           <div className="section-title">
             <span className="section-tag">Instant Quote</span>
             <h2>Project Estimator</h2>
-            <p>Tell us what you're building and get an instant price range and timeline.</p>
+            <p>Tell us what you&apos;re building and get an instant price range and timeline.</p>
           </div>
 
           <div className="estimator-container card">
@@ -387,7 +387,7 @@ function App() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
               >
-                <p className="testimonial-content">"{t.content}"</p>
+                <p className="testimonial-content">&quot;{t.content}&quot;</p>
                 <div className="testimonial-author">
                   <div className="author-info">
                     <strong>{t.name}</strong>
@@ -447,7 +447,7 @@ function App() {
                   <CheckCircle size={40} color="var(--primary-emerald)" />
                 </div>
                 <h3 style={{ color: 'white', fontSize: '2rem', marginBottom: '16px' }}>Ready to Scale Your Business?</h3>
-                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem' }}>Get a free consultation and let's build your digital future today.</p>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '1.1rem' }}>Get a free consultation and let&apos;s build your digital future today.</p>
               </div>
               <div style={{ position: 'absolute', top: '-20%', right: '-20%', width: '300px', height: '300px', background: 'var(--primary-emerald)', opacity: 0.1, filter: 'blur(60px)', borderRadius: '50%' }}></div>
             </motion.div>
@@ -532,7 +532,7 @@ function App() {
         <div className="contact-grid">
           <div className="contact-info">
             <span className="section-tag">Get in Touch</span>
-            <h2 style={{ fontSize: '3rem', marginBottom: '24px' }}>Let's Build the Future Together.</h2>
+            <h2 style={{ fontSize: '3rem', marginBottom: '24px' }}>Let&apos;s Build the Future Together.</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '48px' }}>Based in Pune, serving clients globally with cutting-edge technology.</p>
 
             <div style={{ display: 'grid', gap: '32px' }}>
