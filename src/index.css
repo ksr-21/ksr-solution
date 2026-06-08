@@ -30,6 +30,12 @@
   --radius-lg: 24px;
   --radius-full: 9999px;
 
+  /* Additional missing variables */
+  --border-light: rgba(226, 232, 240, 0.5);
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --bg-main: #ffffff;
+
   /* Animations */
   --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

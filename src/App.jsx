@@ -1,26 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import {
-  Rocket,
-  Briefcase,
   Globe,
-  Settings,
   Cpu,
   Users,
   CheckCircle,
   ArrowRight,
   Mail,
-  MessageSquare,
-  Clock,
   ShieldCheck,
   Zap,
-  ChevronRight,
-  MousePointer2,
-  Calendar,
   Layers
 } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import './App.css'
 import { PrivacyPolicy, TermsOfService } from './Legal'
+
+const services = [
+  {
+    title: 'Digital Interfaces',
+    description: 'High-conversion, lightning-fast digital experiences crafted with precision and pixel-perfect detail.',
+    icon: <Globe size={32} />,
+    tag: 'Development'
+  },
+  {
+    title: 'Enterprise Systems',
+    description: 'Sophisticated, scalable architecture engineered to power complex business processes and data ecosystems.',
+    icon: <Layers size={32} />,
+    tag: 'Solutions'
+  },
+  {
+    title: 'Intelligent Automation',
+    description: 'Advanced systems that leverage modern tech to eliminate friction and maximize operational efficiency.',
+    icon: <Zap size={32} />,
+    tag: 'Optimization'
+  },
+  {
+    title: 'Strategic Advisory',
+    description: 'Senior-level technical guidance to help you navigate architecture, scaling, and market disruption.',
+    icon: <Cpu size={32} />,
+    tag: 'Strategy'
+  }
+]
+
+const processSteps = [
+  { step: '01', title: 'Consultation', desc: 'In-depth analysis of your business vision and technical requirements.' },
+  { step: '02', title: 'Architecture', desc: 'Designing a robust and scalable technical blueprint for your success.' },
+  { step: '03', title: 'Engineering', desc: 'Iterative development cycles focusing on performance and security.' },
+  { step: '04', title: 'Assurance', desc: 'Rigorous testing protocols to ensure a flawless deployment experience.' },
+  { step: '05', title: 'Evolution', desc: 'Continuous optimization and scaling as your business reaches new heights.' }
+]
 
 function App() {
   const [scrolled, setScrolled] = useState(false)
@@ -36,41 +63,6 @@ function App() {
 
   if (view === 'privacy') return <PrivacyPolicy onBack={() => setView('home')} />
   if (view === 'terms') return <TermsOfService onBack={() => setView('home')} />
-
-  const services = [
-    {
-      title: 'Digital Interfaces',
-      description: 'High-conversion, lightning-fast digital experiences crafted with precision and pixel-perfect detail.',
-      icon: <Globe size={32} />,
-      tag: 'Development'
-    },
-    {
-      title: 'Enterprise Systems',
-      description: 'Sophisticated, scalable architecture engineered to power complex business processes and data ecosystems.',
-      icon: <Layers size={32} />,
-      tag: 'Solutions'
-    },
-    {
-      title: 'Intelligent Automation',
-      description: 'Advanced systems that leverage modern tech to eliminate friction and maximize operational efficiency.',
-      icon: <Zap size={32} />,
-      tag: 'Optimization'
-    },
-    {
-      title: 'Strategic Advisory',
-      description: 'Senior-level technical guidance to help you navigate architecture, scaling, and market disruption.',
-      icon: <Cpu size={32} />,
-      tag: 'Strategy'
-    }
-  ]
-
-  const processSteps = [
-    { step: '01', title: 'Consultation', desc: 'In-depth analysis of your business vision and technical requirements.' },
-    { step: '02', title: 'Architecture', desc: 'Designing a robust and scalable technical blueprint for your success.' },
-    { step: '03', title: 'Engineering', desc: 'Iterative development cycles focusing on performance and security.' },
-    { step: '04', title: 'Assurance', desc: 'Rigorous testing protocols to ensure a flawless deployment experience.' },
-    { step: '05', title: 'Evolution', desc: 'Continuous optimization and scaling as your business reaches new heights.' }
-  ]
 
   return (
     <div className="app">
@@ -243,7 +235,7 @@ function App() {
         <div className="contact-grid">
           <div className="contact-info">
             <span className="section-tag">Partnership</span>
-            <h2 style={{ fontSize: '3rem', marginBottom: '24px' }}>Let's Build The Future Together.</h2>
+            <h2 style={{ fontSize: '3rem', marginBottom: '24px' }}>Let&apos;s Build The Future Together.</h2>
             <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '48px' }}>Have a complex challenge? We have the technical expertise to solve it.</p>
 
             <div style={{ display: 'grid', gap: '32px' }}>
