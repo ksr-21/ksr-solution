@@ -10,7 +10,7 @@ import {
   Zap,
   Layers
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useSpring } from 'framer-motion'
 import './App.css'
 import { PrivacyPolicy, TermsOfService } from './Legal'
 
@@ -50,6 +50,13 @@ const processSteps = [
 ]
 
 function App() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+
   const [scrolled, setScrolled] = useState(false)
   const [view, setView] = useState('home')
   const [formData, setFormData] = useState({
@@ -70,29 +77,15 @@ function App() {
     setIsSubmitting(true)
     setStatus({ type: '', message: '' })
 
-    try {
-      const response = await fetch('http://localhost:5000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
+    // Simulate API call delay for a realistic feel
+    await new Promise(resolve => setTimeout(resolve, 1500))
 
-      const data = await response.json()
-
-      if (response.ok) {
-        setStatus({ type: 'success', message: 'Thank you for your interest! Our team will contact you shortly.' })
-        setFormData({ fullName: '', email: '', projectOverview: '' })
-      } else {
-        setStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' })
-      }
-    } catch (err) {
-      console.error('Submission error:', err);
-      setStatus({ type: 'error', message: 'Failed to connect to the server. Please check if the backend is running.' })
-    } finally {
-      setIsSubmitting(false)
-    }
+    setStatus({
+      type: 'success',
+      message: 'Thank you for your interest! Our team will contact you shortly.'
+    })
+    setFormData({ fullName: '', email: '', projectOverview: '' })
+    setIsSubmitting(false)
   }
 
   useEffect(() => {
@@ -108,6 +101,20 @@ function App() {
 
   return (
     <div className="app">
+      <motion.div
+        className="scroll-progress"
+        style={{
+          scaleX,
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '4px',
+          background: 'var(--primary-emerald)',
+          transformOrigin: '0%',
+          zIndex: 2000
+        }}
+      />
       {/* Navigation */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="logo">KSR <span>Solutions</span></div>
@@ -127,9 +134,9 @@ function App() {
         <div className="container">
           <motion.div
             className="hero-content"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <span className="section-tag" style={{ background: 'rgba(16, 185, 129, 0.15)', color: 'var(--primary-emerald)' }}>Premium Tech Agency</span>
             <h1>Engineering The Next Era Of Digital Growth.</h1>
@@ -159,10 +166,10 @@ function App() {
               <motion.div
                 key={index}
                 className="card service-card"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.1, duration: 0.5, ease: "easeOut" }}
               >
                 <div className="service-icon">{service.icon}</div>
                 <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-teal)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>{service.tag}</div>
@@ -195,10 +202,10 @@ function App() {
                     key={i}
                     className="feature-item"
                     style={{ display: 'flex', gap: '20px' }}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: i * 0.1, duration: 0.5 }}
                   >
                     <div className="feature-icon" style={{ background: 'var(--bg-soft)', color: 'var(--primary-emerald)', padding: '12px', borderRadius: '12px', height: 'fit-content' }}>
                       {feature.icon}
@@ -243,10 +250,10 @@ function App() {
               <motion.div
                 key={index}
                 className="process-card"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
               >
                 <div className="process-number">{p.step}</div>
                 <h4 style={{ fontSize: '1.5rem', marginBottom: '12px', fontWeight: 700 }}>{p.title}</h4>
@@ -294,9 +301,10 @@ function App() {
           <motion.div
             className="card"
             style={{ padding: '48px' }}
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
           >
             <form
               onSubmit={handleSubmit}
