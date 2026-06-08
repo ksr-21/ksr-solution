@@ -52,6 +52,48 @@ const processSteps = [
 function App() {
   const [scrolled, setScrolled] = useState(false)
   const [view, setView] = useState('home')
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    projectOverview: ''
+  })
+  const [status, setStatus] = useState({ type: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setStatus({ type: '', message: '' })
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Thank you for your interest! Our team will contact you shortly.' })
+        setFormData({ fullName: '', email: '', projectOverview: '' })
+      } else {
+        setStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' })
+      }
+    } catch (err) {
+      console.error('Submission error:', err);
+      setStatus({ type: 'error', message: 'Failed to connect to the server. Please check if the backend is running.' })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -257,26 +299,64 @@ function App() {
             viewport={{ once: true }}
           >
             <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert('Thank you for your interest! Our team will contact you shortly.');
-              }}
+              onSubmit={handleSubmit}
               style={{ display: 'grid', gap: '24px' }}
             >
               <div className="form-group">
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Full Name</label>
-                <input type="text" placeholder="Alex Chen" />
+                <input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleInputChange}
+                  placeholder="Alex Chen"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Work Email</label>
-                <input type="email" placeholder="alex@enterprise.com" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="alex@enterprise.com"
+                  required
+                />
               </div>
               <div className="form-group">
                 <label style={{ display: 'block', marginBottom: '8px', fontWeight: 600 }}>Brief Project Overview</label>
-                <textarea rows="4" placeholder="Tell us about your technical goals..."></textarea>
+                <textarea
+                  name="projectOverview"
+                  value={formData.projectOverview}
+                  onChange={handleInputChange}
+                  rows="4"
+                  placeholder="Tell us about your technical goals..."
+                  required
+                ></textarea>
               </div>
-              <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
-                Initiate Consultation <ArrowRight size={20} />
+
+              {status.message && (
+                <div style={{
+                  padding: '12px',
+                  borderRadius: '8px',
+                  backgroundColor: status.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                  color: status.type === 'success' ? '#10b981' : '#ef4444',
+                  fontSize: '0.9rem',
+                  fontWeight: 500,
+                  textAlign: 'center'
+                }}>
+                  {status.message}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ width: '100%', justifyContent: 'center' }}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? 'Sending...' : 'Initiate Consultation'} <ArrowRight size={20} />
               </button>
             </form>
           </motion.div>
